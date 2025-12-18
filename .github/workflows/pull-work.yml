@@ -1,0 +1,25 @@
+name: Python Code Linting
+
+on:
+  pull_request:      # Se dispara al hacer PR
+    branches:        # Todas las ramas
+      - '**'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    permissions:
+      security-events: write   # necesario para Code Scanning
+
+    steps:
+      # Paso 1: Descargar el código
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Paso 2: Ejecutar el linter / code scanning
+      - name: Run Python Lint Code Scanning
+        uses: advanced-security/python-lint-code-scanning-action@v1
+        with:
+          linter: pylint
+          check: true   # Comprobar el resultado
